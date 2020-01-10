@@ -1,5 +1,5 @@
 import { Inject } from '@nestjs/common'
-import { EntitySchema } from '@benzksd/fireorm'
+import { EntitySchema } from '@ksdtc/fireorm'
 import { getCollectionToken, getCollectionGroupToken } from './fireorm.utils'
 import { FIRESTORE_INSTANCT } from './fireorm.constants'
 

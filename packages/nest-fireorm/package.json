@@ -1,27 +1,27 @@
 {
-  "name": "@benzksd/nest-fireorm",
-  "version": "2.0.0",
-  "main": "./lib/index.js",
-  "typings": "./lib/index.d.ts",
-  "license": "MIT",
-  "scripts": {
-    "prepublish": "npm run build",
-    "build": "tsc -p tsconfig.json"
-  },
-  "dependencies": {
-    "@benzksd/fireorm": "^2.0.0",
-    "reflect-metadata": "^0.1.13"
-  },
-  "devDependencies": {
-    "@nestjs/common": "^6.9.0",
-    "@nestjs/core": "^6.9.0",
-    "firebase-admin": "^8.7.0",
-    "ts-node": "^8.3.0",
-    "typescript": "3.5.3"
-  },
-  "peerDependencies": {
-    "@nestjs/common": ">=6.7",
-    "@nestjs/core": ">=6.7",
-    "firebase-admin": ">=8.7"
-  }
+	"name": "@ksdtc/nest-fireorm",
+	"version": "0.0.0",
+	"main": "./lib/index.js",
+	"typings": "./lib/index.d.ts",
+	"license": "MIT",
+	"scripts": {
+		"prepublish": "npm run build",
+		"build": "tsc -p tsconfig.json"
+	},
+	"dependencies": {
+		"@ksdtc/fireorm": "^0.0.0",
+		"reflect-metadata": "^0.1.13"
+	},
+	"devDependencies": {
+		"@nestjs/common": "^6.9.0",
+		"@nestjs/core": "^6.9.0",
+		"firebase-admin": "^8.7.0",
+		"ts-node": "^8.3.0",
+		"typescript": "3.5.3"
+	},
+	"peerDependencies": {
+		"@nestjs/common": ">=6.7",
+		"@nestjs/core": ">=6.7",
+		"firebase-admin": ">=8.7"
+	}
 }

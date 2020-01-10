@@ -1,4 +1,4 @@
-import { EntitySchema, CollectionRepository, CollectionGroupRepository } from '@benzksd/fireorm'
+import { EntitySchema, CollectionRepository, CollectionGroupRepository } from '@ksdtc/fireorm'
 import { getCollectionToken } from './fireorm.utils'
 import { Firestore } from '@google-cloud/firestore'
 import { FIRESTORE_INSTANCT } from './fireorm.constants'
