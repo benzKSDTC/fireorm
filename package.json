@@ -1,6 +1,5 @@
 {
 	"name": "fireorm",
-	"private": true,
 	"workspaces": [
 		"packages/*"
 	],
