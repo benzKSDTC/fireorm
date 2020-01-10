@@ -5,7 +5,8 @@
 		"packages/*"
 	],
 	"scripts": {
-		"publish:major": "lerna publish major --conventional-commits --yes --tag-version-prefix='release@v'"
+		"publish:major": "lerna publish major --conventional-commits --yes --tag-version-prefix='release@v'",
+		"publish:patch": "lerna publish patch --conventional-commits --yes --tag-version-prefix='release@v'"
 	},
 	"devDependencies": {
 		"lerna": "^3.16.1"
