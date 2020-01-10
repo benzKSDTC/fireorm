@@ -1,6 +1,6 @@
 {
 	"name": "@ksdtc/nest-fireorm",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"main": "./lib/index.js",
 	"typings": "./lib/index.d.ts",
 	"license": "MIT",
@@ -9,7 +9,7 @@
 		"build": "tsc -p tsconfig.json"
 	},
 	"dependencies": {
-		"@ksdtc/fireorm": "^1.0.1",
+		"@ksdtc/fireorm": "^1.0.2",
 		"reflect-metadata": "^0.1.13"
 	},
 	"devDependencies": {
