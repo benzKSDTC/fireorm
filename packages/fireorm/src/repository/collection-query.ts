@@ -229,7 +229,7 @@ export class CollectionQuery {
         }
 
         let relations: string[] = []
-        if (FindOptionsUtils.isFindManyOptions(optionsOrConditions)) {
+        if (FindOptionsUtils.isFindManyOptions<Entity>(optionsOrConditions)) {
             if (optionsOrConditions.select) selfQuery = selfQuery.select(...(optionsOrConditions.select as any))
 
             if (optionsOrConditions.order)
