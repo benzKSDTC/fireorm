@@ -55,7 +55,7 @@ export class TransactionRepository extends CollectionQuery {
     }
 
     getId<Entity>(target: EntitySchema<Entity>): string {
-        return getMetadataStorage().getIdGenerataValue(target, this.firestore)
+        return getMetadataStorage().getIdGenerataValue(target, this.firestore)!
     }
 
     async create<Entity>(target: EntitySchema<Entity>, partialEntity: QueryDeepPartialEntity<Entity> | QueryDeepPartialEntity<Entity>[]): Promise<Entity[] | Entity> {

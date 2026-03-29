@@ -273,8 +273,8 @@ export class CollectionQuery {
         if (where) {
             tokenObj.where = where
         }
-        if (FindOptionsUtils.isFindManyOptions(optionsOrConditions)) {
-            if (optionsOrConditions.select) tokenObj.select = optionsOrConditions.select as (keyof Entity)[]
+        if (FindOptionsUtils.isFindManyOptions<Entity>(optionsOrConditions)) {
+            if (optionsOrConditions.select) tokenObj.select = optionsOrConditions.select
 
             if (optionsOrConditions.order) tokenObj.order = optionsOrConditions.order
 
