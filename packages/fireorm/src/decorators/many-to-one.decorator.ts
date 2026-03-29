@@ -20,7 +20,10 @@ export function ManyToOne<T>(
                 }
                 if (value instanceof Array && inverseSide) {
                     const parts = inverseSide.split('.')
-                    const segments = parts.flatMap((propName: string, propIndex: number) => [value[propIndex], propName])
+                    const segments: any[] = []
+                    for (let i = 0; i < parts.length; i++) {
+                        segments.push(value[i], parts[i])
+                    }
                     const path = collectionPath + '/' + segments.join('/')
                     return { $ref: { id: value[value.length - 1], path } }
                 }
