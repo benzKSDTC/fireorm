@@ -274,7 +274,7 @@ export class CollectionQuery {
             tokenObj.where = where
         }
         if (FindOptionsUtils.isFindManyOptions(optionsOrConditions)) {
-            if (optionsOrConditions.select) tokenObj.select = optionsOrConditions.select
+            if (optionsOrConditions.select) tokenObj.select = optionsOrConditions.select as (keyof Entity)[]
 
             if (optionsOrConditions.order) tokenObj.order = optionsOrConditions.order
 

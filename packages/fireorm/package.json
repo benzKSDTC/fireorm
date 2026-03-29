@@ -9,27 +9,27 @@
 		"build": "tsc -p tsconfig.json"
 	},
 	"dependencies": {
-		"class-transformer": "^0.2.3",
-		"class-validator": "^0.10.0",
-		"dot-object": "^1.9.0",
+		"class-transformer": "^0.5.1",
+		"class-validator": "^0.14.0",
+		"dot-object": "^2.1.5",
 		"is-class": "^0.0.8",
-		"jsonwebtoken": "^8.5.1",
+		"jsonwebtoken": "^9.0.0",
 		"pluralize": "^8.0.0",
 		"ramda": "^0.26.1",
 		"reflect-metadata": "^0.1.13",
-		"uuid": "^3.3.3"
+		"uuid": "^9.0.0"
 	},
 	"peerDependencies": {
 		"@google-cloud/firestore": ">=2.6"
 	},
 	"devDependencies": {
-		"@google-cloud/firestore": "^2.6.0",
-		"@types/dot-object": "^1.7.0",
-		"@types/jsonwebtoken": "^8.3.5",
+		"@google-cloud/firestore": "^8.3.0",
+		"@types/dot-object": "^2.1.1",
+		"@types/jsonwebtoken": "^9.0.0",
 		"@types/pluralize": "^0.0.29",
-		"@types/ramda": "^0.26.21",
+		"@types/ramda": "^0.29.12",
 		"ts-node": "^8.3.0",
-		"typescript": "3.5.3"
+		"typescript": "^5.2.0"
 	},
 	"publishConfig": {
 		"access": "public"

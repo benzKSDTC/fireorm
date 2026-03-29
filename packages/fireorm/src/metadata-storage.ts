@@ -82,9 +82,9 @@ export class MetadataStorage {
             if (typeof primaryProp.strategy === 'function') {
                 return primaryProp.strategy()
             } else if (primaryProp.strategy === "uuid/v1") {
-                return require('uuid/v1')()
+                return require('uuid').v1()
             } else if (primaryProp.strategy === "uuid/v4") {
-                return require('uuid/v4')()
+                return require('uuid').v4()
             } else {
                 const collectionPath = getMetadataStorage().getCollectionPath(target)
                 return firestore.collection(collectionPath).doc().id

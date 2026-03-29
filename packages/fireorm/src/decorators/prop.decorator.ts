@@ -50,7 +50,7 @@ export function Prop(type?: SimpleColumnType | ((type?: any) => Function), optio
         }
 
         if (!R.isNil(options.default)) {
-            Transform(value => 
+            Transform(({ value }) => 
                 R.isNil(value) 
                     ? (typeof options.default === 'function' ? options.default() : options.default)
                     : value
