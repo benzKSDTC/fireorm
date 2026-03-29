@@ -57,7 +57,7 @@ export class CollectionRepository<Entity = any> {
     }
 
     getDocId(): string {
-        return getMetadataStorage().getIdGenerataValue(this.target, this.firestore)
+        return getMetadataStorage().getIdGenerataValue(this.target, this.firestore)!
     }
 
     getDocRef(docId?: string) {
