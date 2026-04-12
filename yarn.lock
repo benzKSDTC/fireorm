@@ -58,7 +58,6 @@
     is-class "^0.0.8"
     jsonwebtoken "^9.0.0"
     pluralize "^8.0.0"
-    ramda "^0.26.1"
     reflect-metadata "^0.1.13"
     uuid "^9.0.0"
 
@@ -934,11 +933,6 @@ ts-node@^8.3.0:
     make-error "^1.1.1"
     source-map-support "^0.5.17"
     yn "3.1.1"
-
-ts-toolbelt@^6.3.3:
-  version "6.15.5"
-  resolved "https://registry.npmjs.org/ts-toolbelt/-/ts-toolbelt-6.15.5.tgz"
-  integrity sha512-FZIXf1ksVyLcfr7M317jbB67XFJhOO1YqdTcuGaq9q5jLUoTikukZ+98TPjKiP2jC5CgmYdWWYs0s2nLSU0/1A==
 
 typescript@^5.2.0, typescript@>=2.7:
   version "5.9.3"

@@ -54,8 +54,14 @@ export class TransactionRepository extends CollectionQuery {
         return loop([], {}, data)
     }
 
-    getId<Entity>(target: EntitySchema<Entity>): string | undefined {
-        return getMetadataStorage().getIdGenerataValue(target, this.firestore)
+    getId<Entity>(target: EntitySchema<Entity>): string {
+        const id = getMetadataStorage().getIdGenerataValue(target, this.firestore)
+        if (!id) {
+            throw new Error(
+                `No auto-generated id strategy is configured for entity '${(target as any).name}'. Provide an id explicitly.`,
+            )
+        }
+        return id
     }
 
     async create<Entity>(target: EntitySchema<Entity>, partialEntity: QueryDeepPartialEntity<Entity> | QueryDeepPartialEntity<Entity>[]): Promise<Entity[] | Entity> {
@@ -70,7 +76,8 @@ export class TransactionRepository extends CollectionQuery {
                     entityClassObject = plainToClass(target, entityClassObject)
 
                 const entityPlainObject: any = classToPlain(entityClassObject)
-                const newId = this.getId(target) || entityPlainObject[idPropName]
+                const generatedId = getMetadataStorage().getIdGenerataValue(target, this.firestore)
+                const newId = generatedId || entityPlainObject[idPropName]
                 if (!newId) {
                     throw new Error(`Id properties cannot be undefined. entity: ${target.name}, property: ${idPropName}`)
                 }
@@ -86,7 +93,7 @@ export class TransactionRepository extends CollectionQuery {
                 entityClassObject = plainToClass(target, entityClassObject)
 
             const entityPlainObject: any = classToPlain(entityClassObject)
-            const generatedId = this.getId(target)
+            const generatedId = getMetadataStorage().getIdGenerataValue(target, this.firestore)
             if (generatedId) {
                 entityPlainObject[idPropName] = generatedId
             } else if (!entityPlainObject[idPropName]) {
