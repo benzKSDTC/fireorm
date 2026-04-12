@@ -1,5 +1,5 @@
 import { Firestore, WriteResult, CollectionReference } from '@google-cloud/firestore'
-import { classToClass } from 'class-transformer'
+import { instanceToInstance } from 'class-transformer'
 import { getMetadataStorage } from '../metadata-storage'
 import { DeepPartial } from '../common/deep-partial'
 import { EntitySchema } from '../common/entity-schema'
@@ -56,12 +56,18 @@ export class CollectionRepository<Entity = any> {
         return loop([], {}, data)
     }
 
-    getDocId(): string {
+    getDocId(): string | undefined {
         return getMetadataStorage().getIdGenerataValue(this.target, this.firestore)
     }
 
     getDocRef(docId?: string) {
-        return this.collectionRef.doc(docId || this.getDocId())
+        const id = docId || this.getDocId()
+        if (!id) {
+            throw new Error(
+                `No document id provided and no auto-generated id strategy is configured for entity '${this.target.name}'.`,
+            )
+        }
+        return this.collectionRef.doc(id)
     }
 
     runTransaction<T>(
@@ -75,7 +81,7 @@ export class CollectionRepository<Entity = any> {
     }
 
     getSubRepository<T>(target: EntitySchema<T>, field: keyof Entity, id: string) {
-        const subCollectionPath = `${this.collectionPath}/${id}/${field}`
+        const subCollectionPath = `${this.collectionPath}/${id}/${String(field)}`
         return CollectionRepository.getRepository(target, this.firestore, subCollectionPath)
     }
 
@@ -89,7 +95,7 @@ export class CollectionRepository<Entity = any> {
                 if (!(entity instanceof this.target)) {
                     entityClassObject = this.query.transformToClass(this.target, entity)
                 } else {
-                    entityClassObject = classToClass(entity)
+                    entityClassObject = instanceToInstance(entity)
                 }
 
                 const id = entityClassObject[this.idPropName]
@@ -122,7 +128,7 @@ export class CollectionRepository<Entity = any> {
             if (!(entityOrEntities instanceof this.target)) {
                 entityClassObject = this.query.transformToClass(this.target, entityOrEntities)
             } else {
-                entityClassObject = classToClass(entityClassObject)
+                entityClassObject = instanceToInstance(entityClassObject)
             }
 
             const id = entityClassObject[this.idPropName]

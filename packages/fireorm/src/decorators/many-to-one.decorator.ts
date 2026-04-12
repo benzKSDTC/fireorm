@@ -1,7 +1,6 @@
 import { getMetadataStorage, RelationMetadataArgs } from '../metadata-storage'
 import { Transform, TransformationType, Type } from 'class-transformer'
 import { ObjectType } from '../common'
-import * as R from 'ramda'
 
 export function ManyToOne<T>(
     typeFunc: () => ObjectType<T>,
@@ -9,7 +8,7 @@ export function ManyToOne<T>(
     inverseSide?: string,
 ): Function {
     return function(object: Object, propertyName: string) {
-        Transform((value: any, _: any, transformationType: TransformationType) => {
+        Transform(({ value, type: transformationType }) => {
             const collectionPath = getMetadataStorage().getCollectionPath(collectionType ? collectionType() : typeFunc())
             const idPropertyName = getMetadataStorage().getIdProp(collectionType ? collectionType() : typeFunc()).propertyName
 
@@ -20,17 +19,12 @@ export function ManyToOne<T>(
                     return { $ref: { id: value, path: collectionPath } }
                 }
                 if (value instanceof Array && inverseSide) {
-                    const path =
-                        collectionPath +
-                        '/' +
-                        R.compose(
-                            R.join('/'),
-                            R.flatten,
-                            R.addIndex(R.map)((propName, propIndex) => {
-                                return [value[propIndex], propName]
-                            }),
-                            R.split('.'),
-                        )(inverseSide)
+                    const parts = inverseSide.split('.')
+                    const segments: any[] = []
+                    for (let i = 0; i < parts.length; i++) {
+                        segments.push(value[i], parts[i])
+                    }
+                    const path = collectionPath + '/' + segments.join('/')
                     return { $ref: { id: value[value.length - 1], path } }
                 }
                 return { $ref: { id: value[idPropertyName], path: collectionPath } }

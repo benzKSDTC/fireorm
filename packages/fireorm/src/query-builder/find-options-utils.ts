@@ -14,7 +14,7 @@ export class FindOptionsUtils {
                 )
     }
 
-    static isFindManyOptions(obj: any): obj is FindManyOptions<any> {
+    static isFindManyOptions<T = any>(obj: any): obj is FindManyOptions<T> {
         const possibleOptions: FindManyOptions<any> = obj
         return possibleOptions && (
             this.isFindOneOptions(possibleOptions) ||

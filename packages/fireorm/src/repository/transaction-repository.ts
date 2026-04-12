@@ -55,7 +55,13 @@ export class TransactionRepository extends CollectionQuery {
     }
 
     getId<Entity>(target: EntitySchema<Entity>): string {
-        return getMetadataStorage().getIdGenerataValue(target, this.firestore)
+        const id = getMetadataStorage().getIdGenerataValue(target, this.firestore)
+        if (!id) {
+            throw new Error(
+                `No auto-generated id strategy is configured for entity '${(target as any).name}'. Provide an id explicitly.`,
+            )
+        }
+        return id
     }
 
     async create<Entity>(target: EntitySchema<Entity>, partialEntity: QueryDeepPartialEntity<Entity> | QueryDeepPartialEntity<Entity>[]): Promise<Entity[] | Entity> {
@@ -68,12 +74,16 @@ export class TransactionRepository extends CollectionQuery {
                 let entityClassObject = entity as any
                 if (!(entity instanceof target))
                     entityClassObject = plainToClass(target, entityClassObject)
-                
-                const newId = this.getId(target)
+
                 const entityPlainObject: any = classToPlain(entityClassObject)
+                const generatedId = getMetadataStorage().getIdGenerataValue(target, this.firestore)
+                const newId = generatedId || entityPlainObject[idPropName]
+                if (!newId) {
+                    throw new Error(`Id properties cannot be undefined. entity: ${target.name}, property: ${idPropName}`)
+                }
                 entityPlainObject[idPropName] = newId
 
-                this.tnx.create(collectionRef.doc(newId), entityPlainObject)
+                this.tnx.create(collectionRef.doc(String(newId)), entityPlainObject)
                 return plainToClass(target, entityPlainObject)
             })
             return docs
@@ -81,16 +91,17 @@ export class TransactionRepository extends CollectionQuery {
             let entityClassObject = partialEntity as any
             if (!(partialEntity instanceof target))
                 entityClassObject = plainToClass(target, entityClassObject)
-            
-            const newId = this.getId(target)
+
             const entityPlainObject: any = classToPlain(entityClassObject)
-            if (newId) {
-                entityPlainObject[idPropName] = newId
-            }  else if (!entityPlainObject[idPropName]) {
-                throw new Error(`Id properties cannot undefined. entity: ${target.name}, property: ${idPropName}`)
+            const generatedId = getMetadataStorage().getIdGenerataValue(target, this.firestore)
+            if (generatedId) {
+                entityPlainObject[idPropName] = generatedId
+            } else if (!entityPlainObject[idPropName]) {
+                throw new Error(`Id properties cannot be undefined. entity: ${target.name}, property: ${idPropName}`)
             }
 
-            this.tnx.create(collectionRef.doc(newId), entityPlainObject)
+            const docId = entityPlainObject[idPropName]
+            this.tnx.create(collectionRef.doc(String(docId)), entityPlainObject)
             return plainToClass(target, entityPlainObject)
         }
     }

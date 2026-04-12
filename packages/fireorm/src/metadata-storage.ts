@@ -1,4 +1,5 @@
 import { Firestore } from "@google-cloud/firestore"
+import { v1 as uuidv1, v4 as uuidv4 } from 'uuid'
 
 export interface CollectionMetadataArgs {
     parentTarget?: Function
@@ -82,9 +83,9 @@ export class MetadataStorage {
             if (typeof primaryProp.strategy === 'function') {
                 return primaryProp.strategy()
             } else if (primaryProp.strategy === "uuid/v1") {
-                return require('uuid/v1')()
+                return uuidv1()
             } else if (primaryProp.strategy === "uuid/v4") {
-                return require('uuid/v4')()
+                return uuidv4()
             } else {
                 const collectionPath = getMetadataStorage().getCollectionPath(target)
                 return firestore.collection(collectionPath).doc().id
