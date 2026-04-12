@@ -56,12 +56,18 @@ export class CollectionRepository<Entity = any> {
         return loop([], {}, data)
     }
 
-    getDocId(): string {
-        return getMetadataStorage().getIdGenerataValue(this.target, this.firestore)!
+    getDocId(): string | undefined {
+        return getMetadataStorage().getIdGenerataValue(this.target, this.firestore)
     }
 
     getDocRef(docId?: string) {
-        return this.collectionRef.doc(docId || this.getDocId())
+        const id = docId || this.getDocId()
+        if (!id) {
+            throw new Error(
+                `No document id provided and no auto-generated id strategy is configured for entity '${this.target.name}'.`,
+            )
+        }
+        return this.collectionRef.doc(id)
     }
 
     runTransaction<T>(

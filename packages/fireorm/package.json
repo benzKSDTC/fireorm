@@ -15,7 +15,6 @@
 		"is-class": "^0.0.8",
 		"jsonwebtoken": "^9.0.0",
 		"pluralize": "^8.0.0",
-		"ramda": "^0.26.1",
 		"reflect-metadata": "^0.1.13",
 		"uuid": "^9.0.0"
 	},
@@ -27,7 +26,6 @@
 		"@types/dot-object": "^2.1.1",
 		"@types/jsonwebtoken": "^9.0.0",
 		"@types/pluralize": "^0.0.29",
-		"@types/ramda": "^0.26.0",
 		"@types/uuid": "^9.0.8",
 		"ts-node": "^8.3.0",
 		"typescript": "^5.2.0"

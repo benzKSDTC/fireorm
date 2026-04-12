@@ -76,7 +76,7 @@ export class TransactionRepository extends CollectionQuery {
                 }
                 entityPlainObject[idPropName] = newId
 
-                this.tnx.create(collectionRef.doc(newId), entityPlainObject)
+                this.tnx.create(collectionRef.doc(String(newId)), entityPlainObject)
                 return plainToClass(target, entityPlainObject)
             })
             return docs
@@ -94,7 +94,7 @@ export class TransactionRepository extends CollectionQuery {
             }
 
             const docId = entityPlainObject[idPropName]
-            this.tnx.create(collectionRef.doc(docId), entityPlainObject)
+            this.tnx.create(collectionRef.doc(String(docId)), entityPlainObject)
             return plainToClass(target, entityPlainObject)
         }
     }
